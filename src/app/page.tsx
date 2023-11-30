@@ -1,46 +1,13 @@
 import { supabaseClient } from "@/lib/supabase";
 import { auth, clerkClient } from "@clerk/nextjs";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-
-const MOCK_POSTS = [
-  {
-    id: 1,
-    username: "johndoe",
-    caption: "trenger hjelp til å kjøpe julegaver til barna mine",
-    image: "https://picsum.photos/200/300",
-    avatar: "https://picsum.photos/200/300",
-  },
-  {
-    id: 2,
-    username: "johndoe",
-    caption:
-      "trenger hjelp til å kjøpe julegaver til barna mine asfj skjd akf jajf asdfj klsjf lsdfasdfsadfadf",
-    image: "https://picsum.photos/200/300",
-    avatar: "https://picsum.photos/200/300",
-  },
-  {
-    id: 3,
-    username: "johndoe",
-    caption: "trenger hjelp til å kjøpe julegaver til barna mine",
-    image: "https://picsum.photos/200/300",
-    avatar: "https://picsum.photos/200/300",
-  },
-  {
-    id: 4,
-    username: "johndoe",
-    caption: "trenger hjelp til å kjøpe julegaver til barna mine",
-    image: "https://picsum.photos/200/300",
-    avatar: "https://picsum.photos/200/300",
-  },
-];
 
 export default async function Home() {
   const client = await supabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_KEY as string,
   );
 
-  const { data, error } = await client.from("post").select();
+  const { data } = await client.from("post").select();
 
   const users = await clerkClient.users.getUserList();
 
