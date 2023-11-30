@@ -9,6 +9,7 @@ export default function PostPage({
   return (
     <div>
       <Suspense fallback={<p>Loading posts</p>}>
+        {/* @ts-ignore */}
         <PostDetails slug={slug} />
       </Suspense>
     </div>
