@@ -13,6 +13,10 @@ export async function ProfileDetails() {
   async function logOutAction() {
     "use server";
 
+    if (!sessionId) {
+      return;
+    }
+
     await clerkClient.sessions.revokeSession(sessionId);
     redirect("/sign-in");
   }
@@ -27,6 +31,7 @@ export async function ProfileDetails() {
       </div>
 
       <div className="mt-8">
+        {/* @ts-ignore */}
         <form action={logOutAction}>
           <button className="bg-red-100 text-red-800 px-3 py-1 rounded-md hover:bg-red-200">
             Logg ut

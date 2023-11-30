@@ -36,6 +36,7 @@ export default async function Page() {
 
       <div className="mt-6 max-w-lg">
         <Suspense>
+          {/* @ts-ignore */}
           <ProfileDetails />
         </Suspense>
       </div>
