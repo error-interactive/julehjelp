@@ -35,7 +35,7 @@ export default async function Page() {
       </div>
 
       <div className="mt-6 max-w-lg">
-        <Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
           {/* @ts-ignore */}
           <ProfileDetails />
         </Suspense>
