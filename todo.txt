@@ -1,0 +1,2 @@
+only one post per year
+    user should only be able to post once per year and edit it later
