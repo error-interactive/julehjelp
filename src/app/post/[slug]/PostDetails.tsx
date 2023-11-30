@@ -30,6 +30,10 @@ export async function PostDetails({ slug }: { slug: string }) {
     .eq("id", slug)
     .single<Post>();
 
+  if (!data) {
+    return <p>Post not found</p>;
+  }
+
   const user = await clerkClient.users.getUser(data.user_id);
 
   const formattedPost: Partial<Post> = {
