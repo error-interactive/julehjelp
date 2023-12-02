@@ -18,7 +18,7 @@ interface Post {
 }
 
 export async function PostDetails({ slug }: { slug: string }) {
-  const { getToken, userId } = auth();
+  const { userId } = auth();
 
   const client = await supabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_KEY as string,
