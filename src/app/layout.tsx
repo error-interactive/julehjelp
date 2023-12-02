@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { cn } from "@/utils/css";
-import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+import { ClerkProvider, auth } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
+import { FeedbackPopover } from "@/components/FeedbackPopover";
 
 export const metadata: Metadata = {
   title: "Julehjelp",
@@ -17,7 +18,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { userId } = auth();
-  const user = await currentUser();
 
   return (
     <ClerkProvider>
@@ -29,7 +29,10 @@ export default async function RootLayout({
                 Julehjelp
               </Link>
             </div>
-            <div>
+            <div className="flex items-center space-x-6">
+              <div>
+                <FeedbackPopover />
+              </div>
               {userId ? (
                 <Link href="/profile">
                   <div className="flex items-center space-x-2">
@@ -58,8 +61,10 @@ export default async function RootLayout({
 
           <main className="flex-1 grow h-full sm:px-4">{children}</main>
 
-          <footer className="hidden lg:block flex flex-none bg-slate-100 h-20 items-center px-6">
-            <h3 className="text-lg">Footer</h3>
+          <footer className="hidden lg:block flex flex-none items-center bg-slate-100 items-center px-6 py-4">
+            <Link href="/" className="text-sm text-sky-600 underline">
+              Julehjelp
+            </Link>
           </footer>
         </body>
       </html>

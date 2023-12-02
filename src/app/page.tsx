@@ -1,5 +1,5 @@
 import { supabaseClient } from "@/lib/supabase";
-import { auth, clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default async function Home() {
@@ -20,10 +20,19 @@ export default async function Home() {
     };
   });
 
+  if (!formattedData?.length) {
+    return (
+      <main className="h-full w-full sm:max-w-md md:max-w-full sm:mx-auto sm:py-4 md:container flex items-center justify-center flex-col">
+        <h3 className="font-bold">Her var det tomt!</h3>
+        <p className="text-sm">Bli den første til å legge ut!</p>
+      </main>
+    );
+  }
+
   return (
     <main className="h-full w-full sm:max-w-md md:max-w-full sm:mx-auto sm:py-4 md:container">
       <div className="hidden md:block">
-        <h3 className="text-4xl font-bold">Innlegg</h3>
+        <h3 className="text-lg font-bold">Innlegg</h3>
       </div>
       <div className="">
         <div className="sm:grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:gris-cols-5 sm:gap-4 xl:py-10 py-3">
