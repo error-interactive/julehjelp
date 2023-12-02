@@ -60,8 +60,6 @@ export default function ProfilePostPage() {
 
         const file = new File([blob], new Date().toISOString());
 
-        console.log(file);
-
         setImages((prev) => [...prev, file]);
       }
     }

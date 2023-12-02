@@ -9,8 +9,6 @@ export const FeedbackPopover = () => {
   const handleSendFeedback = () => {
     if (!feedback.trim) return;
 
-    console.log("Sending feedback");
-
     fetch("/api/feedback", {
       method: "POST",
       body: JSON.stringify({ message: feedback }),
