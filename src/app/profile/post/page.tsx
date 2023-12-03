@@ -33,24 +33,18 @@ export default function ProfilePostPage() {
       .eq("user_id", userId)
       .single();
 
-    if (error) {
-      console.error("Error fetching profile post", error);
-    }
-
-    const { data: storageData, error: storageError } = await client.storage
-      .from("images")
-      .createSignedUrls(data.images, 3600);
-
-    if (storageError) {
-      console.error("Error fetching signed urls", error);
-    }
-
-    console.log(storageData);
-
     if (data) {
       setPostId(data.id);
       setDescription(data.caption);
       setPhoneNumber(data.phone_number);
+
+      const { data: storageData, error: storageError } = await client.storage
+        .from("images")
+        .createSignedUrls(data.images, 3600);
+
+      if (storageError) {
+        console.error("Error fetching signed urls", error);
+      }
 
       if (!storageData) return;
 
@@ -62,6 +56,8 @@ export default function ProfilePostPage() {
 
         setImages((prev) => [...prev, file]);
       }
+    } else {
+      console.log("No profile post found");
     }
   };
 
@@ -88,13 +84,18 @@ export default function ProfilePostPage() {
       }
     }
 
-    const { error } = await client.from("post").upsert({
-      id: postId,
+    let postData = {
       caption: description,
       user_id: userId,
       phone_number: phoneNumber,
       images: imageUrls,
-    });
+    } as any;
+
+    if (postId) {
+      postData = { ...postData, id: postId };
+    }
+
+    const { error } = await client.from("post").upsert(postData);
 
     if (error) {
       console.error("Error inserting/updating profile post", error);
@@ -158,15 +159,16 @@ export default function ProfilePostPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2">
-          {images.map((image) => (
-            <div key={image.name} className="aspect-sqaure">
-              <img
-                className="w-40"
-                src={URL.createObjectURL(image)}
-                alt="uploaded image"
-              />
-            </div>
-          ))}
+          {images &&
+            images.map((image) => (
+              <div key={image.name} className="aspect-sqaure">
+                <img
+                  className="w-40"
+                  src={URL.createObjectURL(image)}
+                  alt="uploaded image"
+                />
+              </div>
+            ))}
         </div>
       </div>
 
