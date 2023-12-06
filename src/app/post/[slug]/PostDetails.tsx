@@ -4,12 +4,13 @@ import { supabaseClient } from "@/lib/supabase";
 import { auth, clerkClient } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import { HelpDialog } from "./HelpDialog";
+import { PostImages } from "./PostImages";
 dayjs.locale("no");
 
 interface Post {
   id: number;
   caption: string;
-  image: string;
+  images: string[];
   username: string;
   avatar: string;
   created_at: string;
@@ -88,7 +89,7 @@ export async function PostDetails({ slug }: { slug: string }) {
 
       {/* Need some sort of grid here if we have multiple images */}
       <div>
-        <img className="w-full sm:w-auto" src={data.image} alt="post image" />
+        <PostImages imageUrls={data.images} />
       </div>
     </div>
   );

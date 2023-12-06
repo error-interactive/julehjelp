@@ -7,7 +7,7 @@ export default async function Home() {
     process.env.NEXT_PUBLIC_SUPABASE_KEY as string,
   );
 
-  const { data } = await client.from("post").select();
+  const { data } = await client.from("post").select().is("is_visible", true);
 
   const users = await clerkClient.users.getUserList();
 
