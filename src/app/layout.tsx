@@ -6,6 +6,7 @@ import { ClerkProvider, auth } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 import { FeedbackPopover } from "@/components/FeedbackPopover";
+import { Github } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Julehjelp",
@@ -24,10 +25,20 @@ export default async function RootLayout({
       <html lang="en">
         <body className={cn(GeistSans.className, "flex flex-col h-screen")}>
           <header className="bg-slate-100 h-20 flex items-center px-4 flex-none justify-between">
-            <div>
-              <Link href="/" className="text-3xl font-bold text-sky-600">
-                Julehjelp
-              </Link>
+            <div className="flex items-center space-x-6">
+              <div>
+                <Link href="/" className="text-3xl font-bold text-sky-600">
+                  Julehjelp
+                </Link>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/error-interactive/julehjelp"
+                  className="cursor-pointer"
+                >
+                  <Github size={18} />
+                </a>
+              </div>
             </div>
             <div className="flex items-center space-x-6">
               <div>
